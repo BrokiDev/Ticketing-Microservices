@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: brokidev/ticketing/auth
+          image: gcr.io/ticketing-dev-course-448015/ticketing/auth
 ---
 apiVersion: v1
 kind: Service
