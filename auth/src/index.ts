@@ -3,6 +3,7 @@ import morgan from "morgan";
 import Router from "./routes";
 import { errorHandler } from "./middlewares/errorHandler";
 import { NotFoundError } from "./errors/not-found-error";
+import { dbInitialized } from "./config/database";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -18,7 +19,8 @@ app.get("/", (req, res) => {
 
 app.use('/api/users',Router.users)
 
-app.listen(PORT, () => {
+dbInitialized();
+app.listen(PORT, async () => {
   console.log(`Auth service is running on port ${PORT}`);
 });
 
