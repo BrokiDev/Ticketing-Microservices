@@ -1,12 +1,12 @@
 import { CustomError } from "./custom-error";
 
-export class NotFoundError extends CustomError {
-  statusCode = 404;
+export class BadRequestError extends CustomError {
+  statusCode = 400;
 
   constructor(public message: string) {
     super(message);
 
-    Object.setPrototypeOf(this, NotFoundError.prototype);
+    Object.setPrototypeOf(this, BadRequestError.prototype);
   }
 
   serializeErrors() {
