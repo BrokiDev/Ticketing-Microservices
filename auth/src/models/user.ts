@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { EncryptionPass } from "../services/encrypt-password";
 
 export interface IUser {
     name: string
@@ -41,6 +42,15 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.createNewUser = (attrs:IUser) => {
     return new User(attrs)
 }
+
+
+userSchema.pre("save",async function (done){
+    if(this.isModified('password')) {
+        const hashedPass = await EncryptionPass.encryptPassword(this.get('password'));
+        this.set('password',hashedPass);
+    }
+    done();
+})
 
 export const User = mongoose.model<UserDoc,userModel>('User', userSchema);
 
