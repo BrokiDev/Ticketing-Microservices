@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { BadRequestError } from "../../errors/bad-request-error";
 import { User } from "../../models/user";
+import { JWT_Service } from "../../services/jwt.service";
 
 
 
@@ -16,6 +17,11 @@ export const signUpController = async (req:Request,res:Response,next:NextFunctio
     })
 
     await userCreated.save();
+
+    JWT_Service.generateToken({
+        id: userCreated.id,
+        email:userCreated.email
+    },res);
 
     res.status(201).json({
         status: "created",

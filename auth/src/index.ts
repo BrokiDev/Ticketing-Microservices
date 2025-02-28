@@ -5,6 +5,11 @@ import Router from "./routes";
 import { errorHandler } from "./middlewares/errorHandler";
 import { NotFoundError } from "./errors/not-found-error";
 import { dbInitialized } from "./config/database";
+import { config } from "dotenv";
+
+config({
+ path: '.env' 
+})
 
 const app = express();
 const PORT = process.env.PORT || 4000;

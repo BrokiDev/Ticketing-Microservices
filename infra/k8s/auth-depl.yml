@@ -15,6 +15,17 @@ spec:
       containers:
         - name: auth
           image: gcr.io/ticketing-dev-course-448015/ticketing/auth
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            # - name: MONGO_URI
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mongo-secret
+            #       key: MONGO_URI
 ---
 apiVersion: v1
 kind: Service
