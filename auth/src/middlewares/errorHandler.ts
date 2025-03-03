@@ -13,9 +13,17 @@ export const errorHandler = (
         errors: err.serializeErrors(),
       });
     }
+
+    if(err.message == "jwt must be provided") {
+      return res.status(401).json({
+        status: "failed",
+        errors: [{ message: "Unauthorized" }],
+      });
+    };
+
   return res.status(400).json({
       status: "failed",
-      errors: [{ message: "Something went wrong" }],
+      errors: [{ message: err.message || "Something went wrong" }],
     });
   };
   

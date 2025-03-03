@@ -19,7 +19,8 @@ app.use(morgan("dev"));
 
 
 
-app.use('/api/users',Router.users)
+app.use('/api/users',Router.users);
+app.use('/api/auth',Router.auth);
 
 app.use('*', (req,res,next) => {
   next(new NotFoundError(`Cannot find the route ${req.originalUrl} on this server`));

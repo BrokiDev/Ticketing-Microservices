@@ -1,50 +1,18 @@
-import { Router } from "express";
-import { body } from "express-validator";
+import { Request, Response, Router, } from "express";
 import {
-  signInController,
-  signUpController,
+  meController
 } from "../../controllers/users/index";
-import { validateRequest } from "../../middlewares/validate-request";
+import { authMiddleware } from "../../middlewares/authMiddleware";
 
 const userRoutes = Router();
+userRoutes.get("/currentUser",meController);
 
-userRoutes.post(
-  "/signup",
-  [
-    body("email").isEmail().withMessage("email must be valid"),
-    body("password")
-      .trim()
-      .isLength({ min: 4, max: 20 })
-      .withMessage("password must be between 4 and 20 characters"),
-  ],validateRequest,
-  signUpController
-);
-userRoutes.post(
-  "/signin",
-  [
-    body("email").isEmail().withMessage("email must be valid"),
-    body("password")
-      .trim()
-      .isLength({ min: 4, max: 20 })
-      .withMessage("password must be between 4 and 20 characters"),
-  ],validateRequest,
-  signInController
-);
-userRoutes.post("/signout", (req, res) => {
-  console.log("route not implemented yet");
-  res.send("route not implemented yet");
-});
-userRoutes.get("/currentUser", (req, res) => {
-  console.log("route not implemented yet");
-  res.send("route not implemented yet");
+userRoutes.get("/test",authMiddleware, (req:Request,res:Response) => {
+  res.status(200).json({
+    status:"success",
+    message: "Protected Route"
+  })
 });
 
-userRoutes.get("/broki", (req, res) => {
-  console.log("route not implemented yet");
-  res.json({
-    status: "success",
-    message: "route not implemented yet",
-  });
-});
 
 export default userRoutes;

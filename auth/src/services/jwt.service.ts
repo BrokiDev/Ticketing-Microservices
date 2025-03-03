@@ -1,9 +1,18 @@
 
+import { config } from 'dotenv';
 import { Response } from 'express';
-import {sign,verify} from 'jsonwebtoken'
+import {sign,verify,decode, JwtPayload} from 'jsonwebtoken'
+config({
+    path: '.env'
+})
 
 const JWT_KEY = process.env.JWT_KEY ?? ""
 const JWT_EXPIRES = process.env.JWT_EXPIRES_IN ?? "1d"
+
+console.log({
+    JWT_KEY,
+    JWT_EXPIRES
+})
 
 export class JWT_Service {
     static async generateToken(payload:object,res:Response) {
@@ -17,7 +26,7 @@ export class JWT_Service {
             expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         })
     }
-    static async verifyToken(token:string) {
-        return  verify(token, process.env.JWT_KEY ?? '');
+    static verifyToken(token:string):JwtPayload&{id:string,email:string}  {
+        return verify(token,JWT_KEY || "") as JwtPayload&{id:string,email:string};
     }
 }
