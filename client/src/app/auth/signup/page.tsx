@@ -32,8 +32,8 @@ const SignUpPage = () => {
     
         try {
            await axios.post("/api/auth/signup", {
-            fName: dataSignUp.fName,
-            lName: dataSignUp.lName,
+            name: dataSignUp.fName,
+            lastName: dataSignUp.lName,
             email: dataSignUp.email,
             password: dataSignUp.password,
           });
