@@ -13,7 +13,7 @@ const SignInPage = () => {
     email: "",
     password: "",
   });
-  const [errors,setErrors] = useState()
+  const [errors, setErrors] = useState([]);
 
   const handleChanges = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,24 +25,16 @@ const SignInPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/auth/signin",{
-        email:data.email,
-        password:data.password
-      })
+      await axios.post("/api/auth/signin", {
+        email: data.email,
+        password: data.password,
+      });
 
-      
-      console.log({
-        body: JSON.stringify(data)
-      })
-      console.log("response message", response);
     } catch (error) {
-        setErrors(error.response.data.errors);
-      console.log(error);
+      setErrors(error.response.data.errors);
     }
   };
 
-  console.log(errors)
-  
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen bg-gray-700">
@@ -92,7 +84,15 @@ const SignInPage = () => {
       </form>
 
       <div className="pt-2">
-        <p className="text-lg ">
+        {errors &&
+          errors.map((item: { field: string; message: string }, i) => {
+            return <div key={`Ind-${i}-Item`} className="p-4 bg-white/95">
+                <ul>
+                    <li className="text-red-600/65"> <strong>{item.field}</strong>: {item.message}</li>
+                </ul>
+            </div>;
+          })}
+        <p className="text-lg mt-6 ">
           dont have a account yet, please{" "}
           <Link href="signup" className="hover:text-amber-50/15 text-blue-500">
             register here

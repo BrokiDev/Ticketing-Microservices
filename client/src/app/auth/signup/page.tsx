@@ -1,6 +1,7 @@
 "use client"
+import axios from 'axios'
 import Link from 'next/link'
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 
 
 interface ISignUp {
@@ -18,6 +19,7 @@ const SignUpPage = () => {
         email: '',
         password: ""
     });
+      const [errors, setErrors] = useState([]);
 
     const handleChanges = (e:ChangeEvent<HTMLInputElement>) => {
         const {name,value} = e.target
@@ -25,11 +27,28 @@ const SignUpPage = () => {
         setDataSignUp({...dataSignUp, [name]:value});
     }
 
+    const onSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+    
+        try {
+           await axios.post("/api/auth/signup", {
+            fName: dataSignUp.fName,
+            lName: dataSignUp.lName,
+            email: dataSignUp.email,
+            password: dataSignUp.password,
+          });
+    
+        } catch (error) {
+          setErrors(error.response.data.errors);
+        }
+      };
+    
+
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen bg-gray-700">
       <h1 className="text-3xl font-bold mb-4">Sign Up Page</h1>
-      <form className="bg-black/45 p-6 rounded shadow-md w-96">
+      <form onSubmit={onSubmit} className="bg-black/45 p-6 rounded shadow-md w-96">
 
       <div className="mb-4">
           <label htmlFor="fName" className="block text-sm font-medium text-white">First Name</label>
@@ -53,7 +72,15 @@ const SignUpPage = () => {
 
       </form>
       <div className="pt-2">
-        <p className="text-lg ">
+      {errors &&
+          errors.map((item: { field: string; message: string }, i) => {
+            return <div key={`Ind-${i}-Item`} className="p-4 bg-white/95">
+                <ul>
+                    <li className="text-red-600/65"> <strong>{item.field}</strong>: {item.message}</li>
+                </ul>
+            </div>;
+          })}
+        <p className="text-lg mt-6 ">
           already have a account, please {" "}
           <Link
             href="signin"
