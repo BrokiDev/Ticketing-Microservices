@@ -1,5 +1,5 @@
 "use client"
-import axios from 'axios'
+import useRequest from '@/app/hooks/useRequest'
 import Link from 'next/link'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 
@@ -19,7 +19,8 @@ const SignUpPage = () => {
         email: '',
         password: ""
     });
-      const [errors, setErrors] = useState([]);
+    const {errors,makeRequest} = useRequest({method:"post",URL:"/api/auth/signup",body:dataSignUp})
+      // const [errors, setErrors] = useState([]);
 
     const handleChanges = (e:ChangeEvent<HTMLInputElement>) => {
         const {name,value} = e.target
@@ -29,19 +30,8 @@ const SignUpPage = () => {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-    
-        try {
-           await axios.post("/api/auth/signup", {
-            name: dataSignUp.fName,
-            lastName: dataSignUp.lName,
-            email: dataSignUp.email,
-            password: dataSignUp.password,
-          });
-    
-        } catch (error) {
-          setErrors(error.response.data.errors);
-        }
-      };
+        makeRequest();
+    }
     
 
 
@@ -73,7 +63,7 @@ const SignUpPage = () => {
       </form>
       <div className="pt-2">
       {errors &&
-          errors.map((item: { field: string; message: string }, i) => {
+          errors.map((item: { field: string; message: string }, i:number) => {
             return <div key={`Ind-${i}-Item`} className="p-4 bg-white/95">
                 <ul>
                     <li className="text-red-600/65"> <strong>{item.field}</strong>: {item.message}</li>

@@ -1,5 +1,6 @@
 "use client";
-import axios from "axios";
+import useRequest from "@/app/hooks/useRequest";
+// import axios from "axios";
 import Link from "next/link";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
@@ -13,7 +14,9 @@ const SignInPage = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState([]);
+  const {errors,makeRequest} = useRequest({method:"post",URL:"/api/auth/signin",body:data})
+
+  // const [errors, setErrors] = useState([]);
 
   const handleChanges = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,17 +26,9 @@ const SignInPage = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    try {
-      await axios.post("/api/auth/signin", {
-        email: data.email,
-        password: data.password,
-      });
-
-    } catch (error) {
-      setErrors(error.response.data.errors);
-    }
+    makeRequest()
   };
+
 
 
   return (
@@ -85,7 +80,7 @@ const SignInPage = () => {
 
       <div className="pt-2">
         {errors &&
-          errors.map((item: { field: string; message: string }, i) => {
+          errors.map((item: { field: string; message: string }, i:number) => {
             return <div key={`Ind-${i}-Item`} className="p-4 bg-white/95">
                 <ul>
                     <li className="text-red-600/65"> <strong>{item.field}</strong>: {item.message}</li>
