@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: gcr.io/ticketing-dev-course-448015/ticketing/client
+          image:  brokidev/ticketingclient
           ports:
             - containerPort: 3000
 

@@ -1,3 +1,35 @@
+apiVersion: skaffold/v2beta3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: brokidev/ticketingauth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: brokidev/ticketingclient
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+
+
+
+
+# GCP (GOOGLE CLOUD PLATFORM INTEGRATION)
+
 # apiVersion: skaffold/v2beta3
 # kind: Config
 # deploy:
@@ -5,8 +37,8 @@
 #     manifests:
 #       - infra/k8s/*
 # build:
-#   local:
-#     push: false
+#   googleCloudBuild:
+#     projectId: "ticketing-dev-course-448015"
 #   artifacts:
 #     - image: gcr.io/ticketing-dev-course-448015/ticketing/auth
 #       context: auth
@@ -16,49 +48,11 @@
 #         manual:
 #           - src: "src/**/*.ts"
 #             dest: .
-
-# apiVersion: skaffold/v2beta3
-# kind: Config
-# deploy:
-#   kubectl:
-#     manifests:
-#       - infra/k8s/*
-# build:
-#   artifacts:
-#     - image: gcr.io/ticketing-dev-course-448015/ticketing/auth
-#       context: auth
-#       custom:
-#         buildCommand:  gcloud builds submit --config cloudbuild.yaml .
-#         dependencies:
-#           paths:
-#             - auth/Dockerfile
-#   local:
-#     push: false
-
-
-apiVersion: skaffold/v2beta3
-kind: Config
-deploy:
-  kubectl:
-    manifests:
-      - infra/k8s/*
-build:
-  googleCloudBuild:
-    projectId: "ticketing-dev-course-448015"
-  artifacts:
-    - image: gcr.io/ticketing-dev-course-448015/ticketing/auth
-      context: auth
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: gcr.io/ticketing-dev-course-448015/ticketing/client
-      context: client
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
+#     - image: gcr.io/ticketing-dev-course-448015/ticketing/client
+#       context: client
+#       docker:
+#         dockerfile: Dockerfile
+#       sync:
+#         manual:
+#           - src: "src/**/*.ts"
+#             dest: .
