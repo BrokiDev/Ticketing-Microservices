@@ -19,8 +19,6 @@ const useRequest = ({method = "get",URL,body,headers}:UseRequestProps) => {
         const response = await axios[method](URL, body,{
             ...headers,
         });
-
-        axios.post("",{},)
         setData(response.data);
         } catch (error:any) {
         setErrors(error.response.data.errors);
