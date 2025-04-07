@@ -13,10 +13,13 @@ export const signInController = async (
 
   const user = await User.findOne({ email });
 
-  if (
-    !user ||
-    !(await EncryptionPass.decryptPassword(password, user.password))
-  ) {
+  if (!user) {
+    return next(new BadRequestError("Invalid credentials"));
+  }
+  
+  const isValid = await EncryptionPass.decryptPassword(password, user.password);
+  
+  if (!isValid) {
     return next(new BadRequestError("Invalid credentials"));
   }
 

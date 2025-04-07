@@ -9,10 +9,6 @@ config({
 const JWT_KEY = process.env.JWT_KEY ?? ""
 const JWT_EXPIRES = process.env.JWT_EXPIRES_IN ?? "1d"
 
-console.log({
-    JWT_KEY,
-    JWT_EXPIRES
-})
 
 export class JWT_Service {
     static async generateToken(payload:object,res:Response) {
