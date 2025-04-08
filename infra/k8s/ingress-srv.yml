@@ -16,7 +16,7 @@ spec:
               service:
                 name: auth-srv # Service name 
                 port:
-                  number: 4000
+                  number: 3000
           - path: "/"
             pathType: ImplementationSpecific
             backend:

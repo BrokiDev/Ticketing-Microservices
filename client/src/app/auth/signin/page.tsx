@@ -2,6 +2,7 @@
 import useRequest from "@/app/hooks/useRequest";
 // import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
 interface ISignIn {
@@ -14,6 +15,7 @@ const SignInPage = () => {
     email: "",
     password: "",
   });
+  const router = useRouter();
   const {errors,makeRequest} = useRequest({method:"post",URL:"/api/auth/signin",body:data})
 
   // const [errors, setErrors] = useState([]);
@@ -27,6 +29,7 @@ const SignInPage = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     makeRequest()
+    router.push("/");
   };
 
 
