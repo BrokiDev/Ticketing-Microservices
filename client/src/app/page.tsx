@@ -16,13 +16,13 @@ export default async function LandingPage() {
   let data:IUser = {} as IUser
     try {
       const requestHeaders = await headers();
-      const cookie = requestHeaders.get("cookie"); // Extrae la cookie del encabezado
+      const cookie = requestHeaders.get("cookie");
       const {data:dataRequest} = await axios.get(
         "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentUser",
         {
           headers: {
             Host: "ticketing.local",
-            Cookie: cookie || "", // Pasa la cookie al backend
+            Cookie: cookie || "",
           },
           withCredentials: true,
         }
