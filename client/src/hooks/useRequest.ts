@@ -9,19 +9,25 @@ interface UseRequestProps {
     headers?: AxiosRequestConfig<any> | undefined;
 }
 
+interface UseRequestReturn<K,E = any> {
+    data: K | null;
+    errors: E | null;
+    makeRequest: () => Promise<void>;
+}
 
-const useRequest = ({method = "get",URL,body,headers}:UseRequestProps) => {
-    const [data, setData] = useState<any>(null);
-    const [errors, setErrors] = useState<any>(null);
+
+const useRequest = <K,E = any>({method = "get",URL,body,headers}:UseRequestProps):UseRequestReturn<K,E> => {
+    const [data, setData] = useState<K | null>(null);
+    const [errors, setErrors] = useState<E | null>(null);
     
-    const makeRequest = async () => {
+    const makeRequest = async () =>  {
         try {
         const response = await axios[method](URL, body,{
             ...headers,
         });
         setData(response.data);
         } catch (error:any) {
-        setErrors(error.response.data.errors);
+        setErrors(error.response?.data?.errors || error.message);
         }
     };
     

@@ -1,5 +1,6 @@
 "use client";
-import useRequest from "@/app/hooks/useRequest";
+
+import useRequest from "@/hooks/useRequest";
 // import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

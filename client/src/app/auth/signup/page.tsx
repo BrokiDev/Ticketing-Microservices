@@ -1,5 +1,5 @@
 "use client";
-import useRequest from "@/app/hooks/useRequest";
+import useRequest from "@/hooks/useRequest";
 import Link from "next/link";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
