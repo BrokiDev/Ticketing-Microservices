@@ -1,5 +1,6 @@
 import axios from "axios";
 import { headers } from "next/headers";
+import MainLayout from "./components/layout/MainLayout";
 
 interface IUser {
 data:{
@@ -35,8 +36,9 @@ export default async function LandingPage() {
 
   return (
     <>
-      <h1>Hello</h1>
-      {data ? <p>Welcome, {data.data.user.name}</p> : <p>Loading...</p>}
+       <MainLayout>
+      {data ? <p>Welcome, {data.data?.user?.name}</p> : <p>You are not Signed In</p>}
+       </MainLayout>
     </>
   );
 }
