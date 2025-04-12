@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { config } from "dotenv";
-import { DatabaseConnectionError } from "../../errors/database-connection-error";
+import { DatabaseConnectionError } from "../../../../common/src/errors/database-connection-error";
 
 
 config({

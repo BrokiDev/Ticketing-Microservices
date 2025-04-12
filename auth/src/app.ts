@@ -2,7 +2,7 @@ import { config } from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import 'express-async-errors';
 import morgan from "morgan";
-import { NotFoundError } from "./errors/not-found-error";
+import { NotFoundError } from "../../common/src/errors/not-found-error";
 import { errorHandler } from "./middlewares/errorHandler";
 import Router from "./routes";
 

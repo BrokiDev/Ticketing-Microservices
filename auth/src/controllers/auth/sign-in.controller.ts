@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { BadRequestError } from "../../errors/bad-request-error";
+import { BadRequestError } from "../../../../common/src/errors/bad-request-error";
 import { User } from "../../models/user";
 import { JWT_Service } from "../../services/jwt.service";
 import { EncryptionPass } from "../../services/encrypt-password";
