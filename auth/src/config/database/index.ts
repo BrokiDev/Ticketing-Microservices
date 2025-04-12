@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { config } from "dotenv";
-import { DatabaseConnectionError } from "../../../../common/src/errors/database-connection-error";
+// import { DatabaseConnectionError } from "@bticket/common";
 
 
 config({
@@ -14,6 +14,6 @@ export const dbInitialized = async () => {
         console.log('The connection to the Database is Successfully')
     } catch (error) {
         console.log('err',error)
-        throw new DatabaseConnectionError()
+        // throw new DatabaseConnectionError()
     }
 }
