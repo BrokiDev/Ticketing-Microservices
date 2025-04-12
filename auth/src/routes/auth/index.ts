@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { signOutController, signInController, signUpController } from "../../controllers/auth";
-import { validateRequest } from "../../middlewares/validate-request";
+import { validateRequest } from "@bticket/common";
 import { body } from "express-validator";
 
 

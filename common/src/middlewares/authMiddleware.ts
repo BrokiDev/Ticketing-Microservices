@@ -1,6 +1,6 @@
 import { Request,Response,NextFunction } from "express";
 import { JWT_Service } from "../services/jwt.service";
-import { BadRequestError } from "../../../common/src/errors/bad-request-error";
+import { BadRequestError } from "../errors/bad-request-error";
 
 export interface IUser {
   id: string;

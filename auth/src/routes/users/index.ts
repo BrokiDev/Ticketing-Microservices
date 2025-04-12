@@ -2,7 +2,7 @@ import { Request, Response, Router, } from "express";
 import {
   meController
 } from "../../controllers/users/index";
-import { authMiddleware } from "../../middlewares/authMiddleware";
+import { authMiddleware } from "@bticket/common";
 
 const userRoutes = Router();
 userRoutes.get("/currentUser",meController);

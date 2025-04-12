@@ -1,7 +1,7 @@
 
 import { config } from 'dotenv';
 import { Response } from 'express';
-import {sign,verify,decode, JwtPayload} from 'jsonwebtoken'
+import { JwtPayload, sign, verify } from 'jsonwebtoken';
 config({
     path: '.env'
 })

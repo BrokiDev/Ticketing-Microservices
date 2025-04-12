@@ -2,8 +2,8 @@ import { config } from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import 'express-async-errors';
 import morgan from "morgan";
-import { NotFoundError } from "../../common/src/errors/not-found-error";
-import { errorHandler } from "./middlewares/errorHandler";
+import { NotFoundError } from "@bticket/common";
+import { errorHandler } from "@bticket/common";
 import Router from "./routes";
 
 config({

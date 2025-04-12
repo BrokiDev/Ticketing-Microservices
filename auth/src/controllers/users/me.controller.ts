@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { BadRequestError } from "../../../../common/src/errors/bad-request-error";
+import { BadRequestError } from "@bticket/common";
 import { JWT_Service } from "../../services/jwt.service";
 import { User } from "../../models/user";
 
