@@ -24,3 +24,10 @@ spec:
                 name: client-srv # Service name 
                 port:
                   number: 3000
+          - path: "/api/tickets/.*"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tickets-srv # Service name 
+                port:
+                  number: 3000
