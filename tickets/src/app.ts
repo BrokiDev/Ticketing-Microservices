@@ -15,7 +15,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 
-app.use("/api/tickets",Routes.tickets);
+
+app.use("/api",Routes.tickets);
 
 app.use('*', (req,res,next) => {
   next(new NotFoundError(`Cannot find the route ${req.originalUrl} on this server`));
